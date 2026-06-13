@@ -1,5 +1,5 @@
 import { useRouter } from 'next/navigation';
-import { Button, Container, Stack, Text, keyframes, Center } from "@chakra-ui/react";
+import { Button, Container, Stack, Text, Center } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import NextLink from 'next/link';
 import { m } from "framer-motion";
@@ -11,12 +11,7 @@ LoginPage.getLayout = function getLayout(page: React.ReactElement) {
     return <Layout variant="logoOnly">{page}</Layout>;
 };
 
-export const animationKeyframes = keyframes`
-  0% { transform: scale(1) rotate(0) translateY(50%); border-radius: 20%; opacity:0; }
-  100% { transform: scale(1) rotate(0) translateY(0); border-radius: 20%; opacity:1;}
-`;
-
-export const animation = `${animationKeyframes} 1s cubic-bezier(0.5, 1, 0.5, 1) 0.3s forwards`;
+export const animation = "fadeInUp 1s cubic-bezier(0.5, 1, 0.5, 1) 0.3s forwards";
 
 export default function LoginPage() {
 

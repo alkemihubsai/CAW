@@ -75,3 +75,16 @@ a {
 .rounded-full {
   border-radius: 9999px;
 }
+
+@keyframes fadeInUp {
+  0% { 
+    transform: scale(1) rotate(0) translateY(50%); 
+    border-radius: 20%; 
+    opacity: 0; 
+  }
+  100% { 
+    transform: scale(1) rotate(0) translateY(0); 
+    border-radius: 20%; 
+    opacity: 1;
+  }
+}

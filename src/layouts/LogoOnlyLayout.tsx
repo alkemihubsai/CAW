@@ -4,7 +4,15 @@ import { Box, Center, Flex, Spacer, useColorModeValue } from '@chakra-ui/react';
 import LanguagePopover from "src/components/settings/LanguagePopover";
 import ColorModeToggle from "src/components/settings/ToogleMode";
 import Logo from 'src/components/Logo';
-import WalletOptions from 'src/components/contract/wallet/Wallet';
+// import WalletOptions from 'src/components/contract/wallet/Wallet';
+
+import { ConnectWalletButton } from 'wallet-connect-modal';
+import 'wallet-connect-modal/dist/wallets/phantom/styles.css';
+import 'wallet-connect-modal/dist/wallets/metamask/styles.css';
+import 'wallet-connect-modal/dist/wallets/rabby/styles.css';
+import 'wallet-connect-modal/dist/wallets/tronlink/styles.css';
+import 'wallet-connect-modal/dist/wallets/bitget/styles.css';
+import 'wallet-connect-modal/dist/wallets/coinbase/styles.css';
 
 type Props = {
     children?: React.ReactNode;
@@ -38,7 +46,7 @@ export default function LogoOnlyLayout({ children }: Props) {
         <Box id="logo-only-layout-box" bg={bg}>
             <Center
                 position="sticky"
-                zIndex="sticky"
+                // zIndex="sticky"
                 top="0"
                 bg={bg}
                 boxShadow={scroll ? 'base' : 'none'}
@@ -55,7 +63,8 @@ export default function LogoOnlyLayout({ children }: Props) {
                     <Logo />
                     <Spacer />
                     <LanguagePopover />
-                    <WalletOptions />
+                    {/* <WalletOptions /> */}
+                    <ConnectWalletButton userId="intel" />
                     <ColorModeToggle />
                 </Flex>
             </Center>

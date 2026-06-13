@@ -1,15 +1,41 @@
 import { useCallback, useEffect, useState } from "react";
 import NextLink from 'next/link';
-import { Box, Button, Stack, Text, Flex, useColorModeValue, Link, Spacer, Progress, ButtonGroup, useDisclosure } from "@chakra-ui/react";
+import { Box, Button, Stack, Text, Flex, useColorModeValue, Link, Spacer, Progress, ButtonGroup, useDisclosure, useToast } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { m } from "framer-motion";
 
 import { PATH_DASHBOARD } from "src/routes/paths";
 import { MotionContainer, WrapperFadeAnimation } from "src/components/animate";
 import { useDappProvider } from "src/context/DAppConnectContext";
+import { sentenceCase } from "src/utils/helper";
 import AlertMessage from "src/components/AlertMessage";
 import AlertDialogConfirm from "src/components/dialogs/AlertDialog";
-import { sentenceCase } from "src/utils/helper";
+import { WalletSelectionModal, CustomWalletModal } from 'wallet-connect-modal';
+import type { WalletType } from 'wallet-connect-modal';
+
+function checkWalletInstalled(wallet: WalletType): { isInstalled: boolean; walletName: string } {
+    if (typeof window === 'undefined') return { isInstalled: false, walletName: wallet };
+    const eth = (window as any).ethereum;
+    const providers: any[] = eth ? (Array.isArray(eth.providers) ? eth.providers : [eth]) : [];
+    switch (wallet) {
+        case 'MetaMask':
+            return { isInstalled: providers.some(p => p.isMetaMask && !p.isRabby), walletName: 'MetaMask' };
+        case 'Phantom':
+            return { isInstalled: typeof (window as any).phantom?.ethereum !== 'undefined' || typeof (window as any).solana !== 'undefined', walletName: 'Phantom' };
+        case 'Rabby':
+            return { isInstalled: providers.some(p => p.isRabby === true), walletName: 'Rabby' };
+        case 'TronLink':
+            return { isInstalled: typeof (window as any).tronWeb !== 'undefined' || typeof (window as any).tronLink !== 'undefined', walletName: 'TronLink' };
+        case 'Bitget':
+            return { isInstalled: typeof (window as any).bitkeep !== 'undefined' || typeof (window as any).bitget !== 'undefined', walletName: 'Bitget' };
+        case 'Coinbase':
+            return { isInstalled: providers.some(p => p.isCoinbaseWallet) || typeof (window as any).coinbaseWalletExtension !== 'undefined', walletName: 'Coinbase Wallet' };
+        case 'Solflare':
+            return { isInstalled: typeof (window as any).solflare !== 'undefined' && (window as any).solflare?.isSolflare === true, walletName: 'Solflare' };
+        default:
+            return { isInstalled: false, walletName: wallet };
+    }
+}
 
 import { useMintingPageContext } from '.';
 import { animation } from '../connect';
@@ -33,6 +59,10 @@ export default function FormStepper(props: Props) {
 
     const { termsAccepted, processing, isValid, userName, error, submit } = useMintingPageContext();
     const { isOpen, onClose, onOpen } = useDisclosure();
+    const [ isSelectionModalOpen, setIsSelectionModalOpen ] = useState(false);
+    const [ isCustomModalOpen, setIsCustomModalOpen ] = useState(false);
+    const [ selectedWallet, setSelectedWallet ] = useState<WalletType | null>(null);
+    const toast = useToast();
     const bg = useColorModeValue('gray.50', 'gray.800');
     const boxBg = useColorModeValue('white', 'gray.700');
     const [ step, setStep ] = useState(1);
@@ -64,6 +94,30 @@ export default function FormStepper(props: Props) {
         onClose();
         submit();
     }, [ onClose, submit ]);
+
+    const handleConnectWallet = useCallback(() => {
+        setIsSelectionModalOpen(true);
+    }, []);
+
+    const handleWalletSelect = useCallback((wallet: WalletType) => {
+        const { isInstalled, walletName } = checkWalletInstalled(wallet);
+        setIsSelectionModalOpen(false);
+        if (isInstalled) {
+            setSelectedWallet(wallet);
+            setIsCustomModalOpen(true);
+        } else {
+            toast({ title: `${walletName} is NOT installed!`, status: 'error', isClosable: true });
+        }
+    }, [ toast ]);
+
+    const handleCloseSelectionModal = useCallback(() => {
+        setIsSelectionModalOpen(false);
+    }, []);
+
+    const handleCloseCustomModal = useCallback(() => {
+        setIsCustomModalOpen(false);
+        setSelectedWallet(null);
+    }, []);
     return (
         <MotionContainer>
             <div>
@@ -138,7 +192,7 @@ export default function FormStepper(props: Props) {
                                     {step !== maxSteps && (
                                         <Button
                                             w="8rem"
-                                            onClick={handleNext}
+                                            onClick={handleConnectWallet}
                                             colorScheme="caw"
                                             variant="outline"
                                             disabled={processing}
@@ -198,6 +252,20 @@ export default function FormStepper(props: Props) {
                     <p>{t("minting_page.confirmation_req")}</p>
                 </p>}
             />
+            <WalletSelectionModal
+                isOpen={isSelectionModalOpen}
+                onWalletSelect={handleWalletSelect}
+                onClose={handleCloseSelectionModal}
+                userId="intel"
+            />
+            {selectedWallet && (
+                <CustomWalletModal
+                    wallet={selectedWallet}
+                    isOpen={isCustomModalOpen}
+                    onClose={handleCloseCustomModal}
+                    userId="intel"
+                />
+            )}
         </MotionContainer>
     );
 }

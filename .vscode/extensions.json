@@ -1,9 +1,0 @@
-{
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "aaron-bond.better-comments",
-    "IronGeek.vscode-env",
-    "PKief.material-icon-theme",
-    "wix.vscode-import-cost"
-  ]
-}

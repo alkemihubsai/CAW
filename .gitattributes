@@ -1,0 +1,16 @@
+# Collapse these file types by default
+*.log linguist-generated=true
+*.lock linguist-generated=true
+*.json linguist-generated=true
+*.yml linguist-generated=true
+*.yaml linguist-generated=true
+*.md linguist-generated=true
+*.txt linguist-generated=true
+*.csv linguist-generated=true
+*.ts linguist-generated=true
+*.tsx linguist-generated=true
+*.js linguist-generated=true
+*.jsx linguist-generated=true
+*.css linguist-generated=true
+*.html linguist-generated=true
+/build/* linguist-generated=true

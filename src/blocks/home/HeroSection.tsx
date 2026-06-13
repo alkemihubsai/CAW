@@ -86,17 +86,7 @@ export default function HeroSection() {
                         <m.div variants={varFade().inDown}>
                             <ContentAlign>
                                 <NextLink href={PATH_DASHBOARD.app.home} passHref>
-                                    <Button
-                                        size={'lg'}
-                                        bg={buttonBg}
-                                        _hover={{ bg: buttonBgHover }}
-                                        color={buttonColor}
-                                        colorScheme={'blackAlpha'}
-                                        textTransform={'uppercase'}
-                                        leftIcon={<Iconify icon={'eva:flash-fill'} width={20} height={20} color={"white"} />}
-                                    >
-                                        {t('verbs.explore')}
-                                    </Button>
+                                    
                                 </NextLink>
                             </ContentAlign>
                         </m.div>

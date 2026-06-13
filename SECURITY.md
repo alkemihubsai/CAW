@@ -3,7 +3,7 @@
 email: caw@caw.is
 
 # Reporting Security Issues
-If you believe you have discovered a security vulnerability, please contact us immediately at caw@caw.is 
+If you believe you have discovered a security vulnerability, please contact us immediately at contact@hubsai.net
 
 We will promptly investigate and address any issues reported.
 

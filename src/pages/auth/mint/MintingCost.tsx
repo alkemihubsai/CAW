@@ -1,10 +1,10 @@
 import { Text } from "@chakra-ui/react";
-import type { As } from "@chakra-ui/react";
+import type { ElementType } from "react";
 
 import { useMintingPageContext } from ".";
 import { fDecimal } from "src/utils/formatNumber";
 
-export default function MintingCost({ title = 'Cost:', renderComp = 'b' }: { title?: string; renderComp?: As; }) {
+export default function MintingCost({ title = 'Cost:', renderComp = 'b' }: { title?: string; renderComp?: ElementType; }) {
 
     const { costVerified, costUSD, costETH, costCAW } = useMintingPageContext();
 
