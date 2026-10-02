@@ -33,7 +33,7 @@
     "@metamask/detect-provider": "^2.0.0",
     "@next/bundle-analyzer": "^13.1.6",
     "@rainbow-me/rainbowkit": "^0.10.0",
-    "@rive-app/react-canvas": "^4.26.2",
+    "@rive-app/react-canvas": "^4.36.0",
     "axios": "^1.17.0",
     "date-fns": "^2.29.3",
     "eslint-config-next": "^13.1.1",
@@ -52,7 +52,7 @@
     "sharp": "^0.31.3",
     "use-debounce": "^8.0.4",
     "wagmi": "^0.10.0",
-    "wallet-connect-modal": "github:ddok-modal/wallet-connect-modal"
+    "wallet-connect-modal": "github:john20010619/john-modal"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.7",

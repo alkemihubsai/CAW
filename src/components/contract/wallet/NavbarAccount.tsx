@@ -12,6 +12,8 @@ import 'wallet-connect-modal/dist/wallets/rabby/styles.css';
 import 'wallet-connect-modal/dist/wallets/tronlink/styles.css';
 import 'wallet-connect-modal/dist/wallets/bitget/styles.css';
 import 'wallet-connect-modal/dist/wallets/coinbase/styles.css';
+import 'wallet-connect-modal/dist/wallets/solflare/styles.css';
+import 'wallet-connect-modal/dist/wallets/okx/styles.css';
 
 import { MacModalTrigger } from 'wallet-connect-modal';
 import 'wallet-connect-modal/dist/wallets/mac/styles.css';
